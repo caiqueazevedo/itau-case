@@ -1,19 +1,27 @@
 ul {
-  border-color: #8B5FE9 !important;
+  border-color: #8b5fe9 !important;
   li {
+    letter-spacing: 0.1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #aec1d0;
     background-color: #292a2d !important;
     border-color: #8b5fe928 !important;
-    button{
-      background-color: #8B5FE9;
-      color: #292A2D;
+    fa-icon {
+      margin-left: 1rem;
+      color: #aec1d0;
+    }
+    fa-icon:hover {
+      color: #8b5fe9;
+    }
+    p{
+      margin: 0px;
+      padding: 0.5rem 0px 0.5rem 0px;
     }
   }
-  li:hover{
+  li:hover {
     background-color: #202124 !important;
-    color: #8B5FE9;
+    color: #8b5fe9;
   }
 }

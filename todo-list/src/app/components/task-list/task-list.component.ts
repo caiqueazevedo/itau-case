@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-task-list',
@@ -11,5 +12,8 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  faTrash = faTrash;
+  faPencilAlt = faPencilAlt;
 
 }
