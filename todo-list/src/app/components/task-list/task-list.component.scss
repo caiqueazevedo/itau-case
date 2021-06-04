@@ -1,0 +1,19 @@
+ul {
+  border-color: #8B5FE9 !important;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #aec1d0;
+    background-color: #292a2d !important;
+    border-color: #8b5fe928 !important;
+    button{
+      background-color: #8B5FE9;
+      color: #292A2D;
+    }
+  }
+  li:hover{
+    background-color: #202124 !important;
+    color: #8B5FE9;
+  }
+}
