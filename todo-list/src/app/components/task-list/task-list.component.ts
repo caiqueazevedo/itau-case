@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { TasksService } from './../../services/tasks.service';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { Task } from '../../interfaces/task'
+import { Task } from '../../entities/task'
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
+
 export class TaskListComponent implements OnInit {
 
   faTrash = faTrash;
@@ -14,15 +16,14 @@ export class TaskListComponent implements OnInit {
 
   task: Task = {
     id: 1,
-    taskDescription: 'testando 123'
+    taskDescription: ''
   };
 
-  constructor() { }
+  constructor(private taskService: TasksService) { 
+  }
 
   ngOnInit(): void {
   }
 
-  
-
-
+  removeTask(){}
 }
