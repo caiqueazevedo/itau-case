@@ -2,10 +2,10 @@
   <div class="col-11 my-3 rounded" id="task-list">
     <ul class="list-group border border-2">
       <li class="list-group-item">
-        <p class="col-10" for="taskDescription">{{task.taskDescription}}</p>
+        <p class="col-10" for="taskList"></p>
         <div class="col-2">
           <fa-icon [icon]="faPencilAlt"></fa-icon>
-          <fa-icon [icon]="faTrash"></fa-icon>
+          <fa-icon [icon]="faTrash" (click)="removeTask()"></fa-icon>
         </div>
       </li>
     </ul>
