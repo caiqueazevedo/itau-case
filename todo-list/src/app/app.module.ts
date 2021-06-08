@@ -8,12 +8,14 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { TodoComponent } from './view/todo/todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewTaskComponent,
-    TaskListComponent
+    TaskListComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,

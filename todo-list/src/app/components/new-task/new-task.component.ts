@@ -1,15 +1,15 @@
+import { Task } from './../../entities/task';
 import { TasksService } from './../../services/tasks.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-new-task',
+  selector: 'new-task',
   templateUrl: './new-task.component.html',
   styleUrls: ['./new-task.component.scss']
 })
 export class NewTaskComponent implements OnInit {
 
-  @Input() taskDescription: string = '';
-  @Input() taskList: string[] = [];
+  @Input() task = Task;
 
   savedTask = '';
 
@@ -18,9 +18,5 @@ export class NewTaskComponent implements OnInit {
    ngOnInit(): void {
   }
 
-  saveTask(task: any){
-    this.savedTask = task;
-    this.tasksService.create(this.savedTask);
-  }
 
 }
