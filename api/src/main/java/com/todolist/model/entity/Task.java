@@ -26,6 +26,7 @@ public class Task {
         return taskDescription;
     }
 
+    @DynamoDBAttribute(attributeName = "task_description")
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }

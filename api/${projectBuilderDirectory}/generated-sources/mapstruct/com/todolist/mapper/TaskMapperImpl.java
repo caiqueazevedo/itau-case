@@ -5,12 +5,11 @@ import com.todolist.model.entity.Task;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
-
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-06-08T00:47:15-0300",
+    date = "2021-06-08T17:32:15-0300",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.10 (Oracle Corporation)"
 )
 @Component
