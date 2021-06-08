@@ -1,5 +1,3 @@
-import { Task } from './../../entities/task';
-import { TasksService } from './../../services/tasks.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,11 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NewTaskComponent implements OnInit {
 
-  @Input() task = Task;
-
-  savedTask = '';
-
-  constructor(private tasksService: TasksService) { }
+  constructor() { }
 
    ngOnInit(): void {
   }

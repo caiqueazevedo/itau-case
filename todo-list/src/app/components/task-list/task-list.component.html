@@ -1,8 +1,8 @@
 <div class="row justify-content-center">
   <div class="col-11 my-3 rounded" id="task-list">
     <ul class="list-group border border-2">
-      <li class="list-group-item" *ngFor="let task of taskList">
-        <p class="col-10" for="taskList">{{task}}</p>
+      <li class="list-group-item">
+        <p class="col-10" for="taskList"></p>
         <div class="col-2">
           <fa-icon [icon]="faPencilAlt"></fa-icon>
           <fa-icon [icon]="faTrash" (click)="removeTask()"></fa-icon>

@@ -1,4 +1,3 @@
-import { TasksService } from './services/tasks.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,7 +22,7 @@ import { TodoComponent } from './view/todo/todo.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ TasksService ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
