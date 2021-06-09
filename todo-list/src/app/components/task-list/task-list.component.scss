@@ -1,4 +1,25 @@
 $white: #aec1d0;
+$violet: #8b5fe9;
+$text-color: #aec1d0;
+$background-color: #292a2d;
+
+button {
+  background-color: $violet;
+  color: $background-color;
+}
+button:hover {
+  background-color: #6e49be;
+}
+
+input {
+  height: 4rem;
+  border-color: $violet !important;
+  background-color: $background-color;
+  color: $text-color;
+  input:focus {
+    border-color: $violet !important;
+  }
+}
 
 ul {
   border-color: #8b5fe9 !important;
@@ -17,7 +38,7 @@ ul {
     fa-icon:hover {
       color: #8b5fe9;
     }
-    p{
+    input {
       margin: 0px;
       padding: 0.5rem 0px 0.5rem 0px;
     }
@@ -29,7 +50,8 @@ ul {
 }
 
 .error {
-  h2, h4{
+  h2,
+  h4 {
     color: $white;
   }
 }
