@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/tasks")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class TaskController {
 
     private final TaskService service;
