@@ -1,5 +1,5 @@
 /* tslint:disable */
 export interface Task {
-  id?: string;
+  id: string;
   taskDescription?: string;
 }

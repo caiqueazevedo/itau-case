@@ -202,7 +202,7 @@ class TaskControllerService extends __BaseService {
 
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `/api/v1/tasks/${encodeURIComponent(String(id))}`,
+      this.rootUrl + `/api/v1/tasks/${(id)}`,
       __body,
       {
         headers: __headers,
@@ -226,6 +226,9 @@ class TaskControllerService extends __BaseService {
     return this.deleteUsingDELETEResponse(id).pipe(
       __map(_r => _r.body as Task)
     );
+  }
+  delete(id: string | undefined): __Observable<Object>{
+    return this.http.delete(`http://localhost:8080/api/v1/tasks/${id}`, {responseType:'text'})
   }
 }
 

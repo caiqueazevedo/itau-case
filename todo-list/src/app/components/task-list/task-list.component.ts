@@ -1,3 +1,4 @@
+import { Task } from 'src/app/api/models';
 import { TaskDTO } from './../../api/models/task-dto';
 import { Component, OnInit } from '@angular/core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -28,13 +29,24 @@ export class TaskListComponent implements OnInit {
       .pipe(
         tap(
           value => console.log(this.taskList$, value)
-        ), 
+        ),
         take(1),
-        catchError( error => {
+        catchError(error => {
           console.error(error);
           this.error$.next(true);
           return empty();
         })
       );
+  }
+
+  delete(task: TaskDTO) {
+    this.taskService.delete(task.id).subscribe();
+    this.taskList$
+    this.updateList();
+  };
+
+  updateList() {
+    this.taskList$ = this.taskService.indexUsingGET();
+    this.ngOnInit();
   }
 }
