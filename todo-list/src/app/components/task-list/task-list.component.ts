@@ -1,5 +1,10 @@
+import { TaskDTO } from './../../api/models/task-dto';
 import { Component, OnInit } from '@angular/core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { empty, Observable, Subject } from 'rxjs';
+import { TaskControllerService } from 'src/app/api/services';
+import { catchError, take, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'task-list',
@@ -9,13 +14,27 @@ import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 export class TaskListComponent implements OnInit {
 
+  taskList$: Observable<TaskDTO[]>;
+  error$ = new Subject();
+
   faTrash = faTrash;
   faPencilAlt = faPencilAlt;
-  constructor() { 
+
+  constructor(private taskService: TaskControllerService) {
   }
 
   ngOnInit(): void {
+    this.taskList$ = this.taskService.indexUsingGET()
+      .pipe(
+        tap(
+          value => console.log(this.taskList$, value)
+        ), 
+        take(1),
+        catchError( error => {
+          console.error(error);
+          this.error$.next(true);
+          return empty();
+        })
+      );
   }
-
-  removeTask(){}
 }

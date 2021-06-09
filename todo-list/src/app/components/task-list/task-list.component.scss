@@ -1,3 +1,5 @@
+$white: #aec1d0;
+
 ul {
   border-color: #8b5fe9 !important;
   li {
@@ -5,12 +7,12 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #aec1d0;
+    color: $white;
     background-color: #292a2d !important;
     border-color: #8b5fe928 !important;
     fa-icon {
       margin-left: 1rem;
-      color: #aec1d0;
+      color: $white;
     }
     fa-icon:hover {
       color: #8b5fe9;
@@ -23,5 +25,11 @@ ul {
   li:hover {
     background-color: #202124 !important;
     color: #8b5fe9;
+  }
+}
+
+.error {
+  h2, h4{
+    color: $white;
   }
 }
