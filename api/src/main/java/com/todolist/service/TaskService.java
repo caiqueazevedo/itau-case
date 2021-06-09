@@ -11,7 +11,9 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public void create(Task task) {
+    public void create(String taskDescription) {
+        Task task = new Task();
+        task.setTaskDescription(taskDescription);
         taskRepository.save(task);
     }
 
@@ -23,10 +25,8 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task updateById(String id, Task updatedTask) {
-        Task task = taskRepository.findById(id).orElseThrow(RuntimeException::new);
-        task.setTaskDescription(updatedTask.getTaskDescription());
-        return taskRepository.save(task);
+    public Task updateById(Task updatedTask) {
+        return taskRepository.save(updatedTask);
     }
 
     public void delete(String id) {

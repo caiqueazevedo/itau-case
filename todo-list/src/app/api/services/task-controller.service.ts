@@ -5,7 +5,7 @@ import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
 import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
 import { Observable as __Observable } from 'rxjs';
-import { map as __map, filter as __filter, delay } from 'rxjs/operators';
+import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { TaskDTO } from '../models/task-dto';
 import { Task } from '../models/task';
@@ -19,8 +19,8 @@ import { Task } from '../models/task';
 class TaskControllerService extends __BaseService {
   static readonly indexUsingGETPath = '/api/v1/tasks';
   static readonly saveUsingPOSTPath = '/api/v1/tasks';
+  static readonly updateUsingPUTPath = '/api/v1/tasks';
   static readonly showUsingGETPath = '/api/v1/tasks/{id}';
-  static readonly updateUsingPUTPath = '/api/v1/tasks/{id}';
   static readonly deleteUsingDELETEPath = '/api/v1/tasks/{id}';
 
   constructor(
@@ -67,14 +67,14 @@ class TaskControllerService extends __BaseService {
 
   /**
    * save
-   * @param taskDTO taskDTO
+   * @param taskDescription taskDescription
    * @return OK
    */
-  saveUsingPOSTResponse(taskDTO: TaskDTO): __Observable<__StrictHttpResponse<Task>> {
+  saveUsingPOSTResponse(taskDescription: string): __Observable<__StrictHttpResponse<Task>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = taskDTO;
+    if (taskDescription != null) __params = __params.set('taskDescription', taskDescription.toString());
     let req = new HttpRequest<any>(
       'POST',
       this.rootUrl + `/api/v1/tasks`,
@@ -94,11 +94,49 @@ class TaskControllerService extends __BaseService {
   }
   /**
    * save
+   * @param taskDescription taskDescription
+   * @return OK
+   */
+  saveUsingPOST(taskDescription: string): __Observable<Task> {
+    return this.saveUsingPOSTResponse(taskDescription).pipe(
+      __map(_r => _r.body as Task)
+    );
+  }
+
+  /**
+   * update
    * @param taskDTO taskDTO
    * @return OK
    */
-  saveUsingPOST(taskDTO: TaskDTO): __Observable<Task> {
-    return this.saveUsingPOSTResponse(taskDTO).pipe(
+  updateUsingPUTResponse(taskDTO: TaskDTO): __Observable<__StrictHttpResponse<Task>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = taskDTO;
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/api/v1/tasks`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Task>;
+      })
+    );
+  }
+  /**
+   * update
+   * @param taskDTO taskDTO
+   * @return OK
+   */
+  updateUsingPUT(taskDTO: TaskDTO): __Observable<Task> {
+    return this.updateUsingPUTResponse(taskDTO).pipe(
       __map(_r => _r.body as Task)
     );
   }
@@ -142,55 +180,6 @@ class TaskControllerService extends __BaseService {
   }
 
   /**
-   * update
-   * @param params The `TaskControllerService.UpdateUsingPUTParams` containing the following parameters:
-   *
-   * - `taskDTO`: taskDTO
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPUTResponse(params: TaskControllerService.UpdateUsingPUTParams): __Observable<__StrictHttpResponse<Task>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = params.taskDTO;
-
-    let req = new HttpRequest<any>(
-      'PUT',
-      this.rootUrl + `/api/v1/tasks/${encodeURIComponent(String(params.id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Task>;
-      })
-    );
-  }
-  /**
-   * update
-   * @param params The `TaskControllerService.UpdateUsingPUTParams` containing the following parameters:
-   *
-   * - `taskDTO`: taskDTO
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPUT(params: TaskControllerService.UpdateUsingPUTParams): __Observable<Task> {
-    return this.updateUsingPUTResponse(params).pipe(
-      __map(_r => _r.body as Task)
-    );
-  }
-
-  /**
    * delete
    * @param id id
    * @return OK
@@ -230,22 +219,6 @@ class TaskControllerService extends __BaseService {
 }
 
 module TaskControllerService {
-
-  /**
-   * Parameters for updateUsingPUT
-   */
-  export interface UpdateUsingPUTParams {
-
-    /**
-     * taskDTO
-     */
-    taskDTO: TaskDTO;
-
-    /**
-     * id
-     */
-    id: string;
-  }
 }
 
 export { TaskControllerService }

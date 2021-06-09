@@ -1,10 +1,10 @@
 import { TaskDTO } from './../../api/models/task-dto';
 import { Component, OnInit } from '@angular/core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { empty, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { TaskControllerService } from 'src/app/api/services';
-import { catchError, take, tap } from 'rxjs/operators';
-
+import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'task-list',
@@ -16,25 +16,48 @@ export class TaskListComponent implements OnInit {
 
   taskList$: Observable<TaskDTO[]>;
   error$ = new Subject();
+  taskForm: FormGroup;
+  taskDescription: string = '';
 
   faTrash = faTrash;
-  faPencilAlt = faPencilAlt;
 
-  constructor(private taskService: TaskControllerService) {
+  constructor(private taskService: TaskControllerService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.taskForm = this.formBuilder.group({
+      taskDescription: ['', [Validators.required, Validators.minLength(3)]]
+    })
+
     this.taskList$ = this.taskService.indexUsingGET()
-      .pipe(
-        tap(
-          value => console.log(this.taskList$, value)
-        ), 
-        take(1),
-        catchError( error => {
-          console.error(error);
-          this.error$.next(true);
-          return empty();
-        })
-      );
+      .pipe(first());
+
+    console.log(this.taskList$)
   }
+
+  reload() {
+    this.taskList$ = this.taskService.indexUsingGET();
+  }
+
+  onSubmit() {
+    this.taskService.saveUsingPOST(this.taskForm.value.taskDescription)
+      .subscribe(() => {
+        this.taskList$ = this.taskService.indexUsingGET()
+      });
+  }
+
+  updateTask(task: TaskDTO) {
+    console.log(task)
+    this.taskService.updateUsingPUT(task).subscribe(() => {
+      this.taskList$ = this.taskService.indexUsingGET()
+    });
+  }
+
+  delete(task: TaskDTO) {
+    this.taskService.deleteUsingDELETE(task.id as string)
+      .pipe(first())
+      .subscribe(() => {
+        this.taskList$ = this.taskService.indexUsingGET()
+      });
+  };
 }

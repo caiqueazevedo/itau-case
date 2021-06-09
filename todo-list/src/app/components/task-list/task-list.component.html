@@ -1,18 +1,30 @@
 <div class="row justify-content-center">
+  <div class="text-center">
+
+    <form [formGroup]="taskForm">
+
+      <input type="text" class="col-11 my-3 border border-2 p-4 rounded" id="add-new-task"
+        placeholder="Escreva sua tarefa aqui =)" formControlName="taskDescription">
+
+      <button type="button" class="btn" (click)="onSubmit()" [disabled]="taskForm.invalid">Adicionar nova
+        tarefa</button>
+    </form>
+  </div>
   <div class="col-11 my-3 rounded" id="task-list">
     <ul class="list-group border border-2" *ngIf="taskList$ | async as taskList; else loading">
-      <li class="list-group-item" *ngFor="let task of taskList">
-        <p class="col-10" for="taskList">{{task.taskDescription}}</p>
-        <div class="col-2">
-          <fa-icon [icon]="faPencilAlt"></fa-icon>
-          <fa-icon [icon]="faTrash"></fa-icon>
+      <li class="list-group-item" *ngFor="let task of taskList; let i = index">
+        <form class="col-10" ngForm (keydown.enter)="updateTask(task)">
+          <input type="text" class="col-12 ps-4 border-0" for="taskList" [(ngModel)]="taskList[i].taskDescription" name="taskDescription">
+        </form>
+        <div class="col-2 text-end">
+          <fa-icon [icon]="faTrash" (click)="delete(task)"></fa-icon>
         </div>
       </li>
     </ul>
     <ng-template #loading>
-      <div class="error text-center p-4" *ngIf="error$ | async"> 
-          <h2>Erro ao carregar as tarefas =(</h2>
-          <h4>Tente novamente...</h4>
+      <div class="error text-center p-4" *ngIf="error$ | async">
+        <h2>Erro ao carregar as tarefas =(</h2>
+        <h4>Tente novamente...</h4>
       </div>
     </ng-template>
   </div>
