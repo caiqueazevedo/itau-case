@@ -1,12 +1,24 @@
+$violet:#8B5FE9;
+$text-color: #aec1d0;
+$background-color: #292A2D;
+
 button {
-  background-color: #8B5FE9;
-  color: #292A2D;
+  background-color: $violet;
+  color: $background-color;
+}
+button:hover{
+  background-color: #6e49be;
 }
 
 input {
   height: 4rem;
-  border-radius: 0.75rem;
-  border-color: #8B5FE9 !important;
-  background-color: #292A2D;
+  border-color: $violet !important;
+  background-color: $background-color;
+  color: $text-color;
+  input:focus {
+    border-color: $violet !important;
+  }
 }
+
+
 

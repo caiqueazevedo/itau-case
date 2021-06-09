@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TaskDTO } from './../../api/models/task-dto';
+import { Component, OnInit } from '@angular/core';
+import { TaskControllerService } from 'src/app/api/services';
+import { Task } from 'src/app/api/models';
 
 @Component({
   selector: 'new-task',
@@ -7,9 +11,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NewTaskComponent implements OnInit {
 
-  constructor() { }
+  taskDescription: string = '';
+  task: TaskDTO = {};
 
-   ngOnInit(): void {
+  constructor(private service: TaskControllerService) { }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit() {
+    this.task.taskDescription = this.taskDescription;
+    this.service.saveUsingPOST(this.task)
+      .subscribe();
   }
 
 

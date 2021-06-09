@@ -1,8 +1,8 @@
 <div class="row">
   <div class="text-center">
-    <form class="needs-validation" novalidate>
-      <input #taskInput type="text" class="col-11 my-3 border border-2" id="add-new-task">
-      <button type="button" class="btn">Adicionar nova tarefa</button>
-    </form>
+    <input type="text" class="col-11 my-3 border border-2 p-4 rounded" id="add-new-task"
+      placeholder="Escreva sua tarefa aqui =)"
+      [(ngModel)]="taskDescription">
+    <button type="button" class="btn" (click)="onSubmit()">Adicionar nova tarefa</button>
   </div>
 </div>
