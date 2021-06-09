@@ -16,15 +16,15 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/tasks")
+@CrossOrigin("http://localhost:4200")
 public class TaskController {
 
     private final TaskService service;
     private final TaskMapper taskMapper;
 
     @PostMapping
-    public ResponseEntity<Task> save(@RequestBody TaskDTO taskDTO) {
-        var response = taskMapper.taskDTOToTask(taskDTO);
-        service.create(response);
+    public ResponseEntity<Task> save(@RequestParam String taskDescription) {
+        service.create(taskDescription);
         return status(CREATED).build();
     }
 
@@ -42,10 +42,10 @@ public class TaskController {
         return status(OK).body(task);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Task> update(@PathVariable String id, @RequestBody TaskDTO taskDTO) {
+    @PutMapping
+    public ResponseEntity<Task> update(@RequestBody TaskDTO taskDTO) {
         var task = taskMapper.taskDTOToTask(taskDTO);
-        var response = service.updateById(id, task);
+        var response = service.updateById(task);
         return status(OK).body(response);
     }
 
