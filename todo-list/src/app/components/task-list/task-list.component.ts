@@ -1,10 +1,10 @@
 import { TaskDTO } from './../../api/models/task-dto';
 import { Component, OnInit } from '@angular/core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
-import {Router} from '@angular/router';
-import { Task } from 'src/app/api/models';
+import { empty, Observable, Subject } from 'rxjs';
 import { TaskControllerService } from 'src/app/api/services';
+import { catchError, take, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'task-list',
@@ -14,18 +14,27 @@ import { TaskControllerService } from 'src/app/api/services';
 
 export class TaskListComponent implements OnInit {
 
-  taskList: TaskDTO[] = [];
+  taskList$: Observable<TaskDTO[]>;
+  error$ = new Subject();
 
   faTrash = faTrash;
   faPencilAlt = faPencilAlt;
 
-  constructor(private taskService: TaskControllerService) { 
+  constructor(private taskService: TaskControllerService) {
   }
 
   ngOnInit(): void {
-    this.taskService.indexUsingGET()
-      .subscribe(
-        res => this.taskList = res)
+    this.taskList$ = this.taskService.indexUsingGET()
+      .pipe(
+        tap(
+          value => console.log(this.taskList$, value)
+        ), 
+        take(1),
+        catchError( error => {
+          console.error(error);
+          this.error$.next(true);
+          return empty();
+        })
+      );
   }
-
 }

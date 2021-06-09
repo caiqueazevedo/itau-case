@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="col-11 my-3 rounded" id="task-list">
-    <ul class="list-group border border-2" *ngIf="taskList">
+    <ul class="list-group border border-2" *ngIf="taskList$ | async as taskList; else loading">
       <li class="list-group-item" *ngFor="let task of taskList">
         <p class="col-10" for="taskList">{{task.taskDescription}}</p>
         <div class="col-2">
@@ -9,5 +9,11 @@
         </div>
       </li>
     </ul>
+    <ng-template #loading>
+      <div class="error text-center p-4" *ngIf="error$ | async"> 
+          <h2>Erro ao carregar as tarefas =(</h2>
+          <h4>Tente novamente...</h4>
+      </div>
+    </ng-template>
   </div>
 </div>

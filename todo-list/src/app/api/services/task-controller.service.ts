@@ -5,7 +5,7 @@ import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
 import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
 import { Observable as __Observable } from 'rxjs';
-import { map as __map, filter as __filter } from 'rxjs/operators';
+import { map as __map, filter as __filter, delay } from 'rxjs/operators';
 
 import { TaskDTO } from '../models/task-dto';
 import { Task } from '../models/task';
