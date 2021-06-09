@@ -11,9 +11,11 @@ import java.util.List;
 public interface TaskMapper {
 
     @Mapping(target = "taskDescription", source = "taskDescription")
+    @Mapping(target = "id", source = "id")
     TaskDTO taskToTaskDTO(Task task);
 
     @Mapping(target = "taskDescription", source = "taskDescription")
+    @Mapping(target = "id", source = "id")
     Task taskDTOToTask(TaskDTO taskDTO);
 
     List<TaskDTO> taskMappingList(Iterable<Task> tasks);
