@@ -1,6 +1,5 @@
 package com.todolist.controller;
 
-import com.todolist.mapper.TaskMapper;
 import com.todolist.model.dto.TaskDTO;
 import com.todolist.model.entity.Task;
 import com.todolist.service.TaskService;
@@ -20,7 +19,7 @@ import static org.springframework.http.ResponseEntity.status;
 public class TaskController {
 
     private final TaskService service;
-    private final TaskMapper taskMapper;
+
 
     @PostMapping
     public ResponseEntity<Task> save(@RequestParam String taskDescription) {
@@ -31,20 +30,20 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskDTO>> index() {
         var response = service.findAllTasks();
-        var tasks = taskMapper.taskMappingList(response);
+        var tasks = service.taskMappingList(response);
         return status(OK).body(tasks);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskDTO> show(@PathVariable String id) {
         var response = service.findById(id);
-        var task = taskMapper.taskToTaskDTO(response);
+        var task = service.taskToTaskDTO(response);
         return status(OK).body(task);
     }
 
     @PutMapping
     public ResponseEntity<Task> update(@RequestBody TaskDTO taskDTO) {
-        var task = taskMapper.taskDTOToTask(taskDTO);
+        var task = service.taskDTOToTask(taskDTO);
         var response = service.updateById(task);
         return status(OK).body(response);
     }
